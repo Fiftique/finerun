@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const navigatie = [
   { href: "/", label: "Home" },
@@ -26,8 +27,14 @@ export default function Footer() {
 
           {/* Logo + Social */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5">
-            <Link href="/" className="text-xl font-bold text-white shrink-0">
-              🏃 FineRun<span className="text-yellow-400">.ro</span>
+            <Link href="/" className="flex items-center shrink-0">
+              <Image
+                src="/logo-finerun-asociatie-sportiva.svg"
+                alt="FineRun.ro"
+                width={101}
+                height={48}
+                className="h-12 w-auto"
+              />
             </Link>
             <div className="flex gap-2">
               <a href="https://instagram.com/finerun.ro" target="_blank" rel="noopener noreferrer"

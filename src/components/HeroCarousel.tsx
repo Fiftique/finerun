@@ -9,28 +9,30 @@ import "swiper/css/navigation";
 
 const slides = [
   {
-    image: "/hero/hero1.jpg",
-    title: "Alergăm împreună, creștem împreună",
-    description:
-      "FineRun este o asociație non-profit din Iași care sprijină sportivii să participe la maratoane și să adopte un stil de viață sănătos.",
+    image: "/hero/asociatia-sportiva-finerun-iasi-hero.webp",
+    title: "",
+    description: "",
+    showText: false,
   },
   {
     image: "/hero/hero2.jpg",
     title: "Fiecare kilometru contează",
     description:
       "Credem că sportul unește comunități. Oferim suport, antrenamente și motivație pentru alergători de toate nivelurile.",
+    showText: true,
   },
   {
     image: "/hero/hero3.jpg",
     title: "Depășește-ți limitele",
     description:
       "De la primul kilometru până la linia de finish a unui maraton — suntem alături de tine la fiecare pas.",
+    showText: true,
   },
 ];
 
 export default function HeroCarousel() {
   return (
-    <section className="relative w-full h-[300px] sm:h-[400px] md:h-[600px] group">
+    <section className="relative w-full aspect-video group">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade, Navigation]}
         effect="fade"
@@ -49,15 +51,19 @@ export default function HeroCarousel() {
               className="relative w-full h-full bg-cover bg-center"
               style={{ backgroundImage: `url(${slide.image})` }}
             >
-              <div className="absolute inset-0 bg-black/50" />
-              <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6">
-                <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
-                  {slide.title}
-                </h1>
-                <p className="text-base sm:text-lg md:text-xl max-w-2xl drop-shadow-md">
-                  {slide.description}
-                </p>
-              </div>
+              {slide.showText && (
+                <>
+                  <div className="absolute inset-0 bg-black/50" />
+                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6">
+                    <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
+                      {slide.title}
+                    </h1>
+                    <p className="text-base sm:text-lg md:text-xl max-w-2xl drop-shadow-md">
+                      {slide.description}
+                    </p>
+                  </div>
+                </>
+              )}
             </div>
           </SwiperSlide>
         ))}

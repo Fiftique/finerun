@@ -11,7 +11,7 @@ export default function CineSuntem() {
         {/* Label */}
         <div className="flex justify-center mb-4">
           <span className="bg-yellow-100 text-yellow-700 text-xs sm:text-sm font-semibold px-4 py-1.5 rounded-full uppercase tracking-wider">
-            🏃 Despre comunitatea noastră
+            Despre comunitatea noastră
           </span>
         </div>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 const links = [
@@ -19,8 +20,15 @@ export default function Navbar() {
   return (
     <nav className="bg-gray-900 text-white px-6 py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link href="/" className="text-xl font-bold">
-          🏃 FineRun<span className="text-yellow-400">.ro</span>
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logo-finerun-asociatie-sportiva.svg"
+            alt="FineRun.ro"
+            width={84}
+            height={40}
+            priority
+            className="h-10 w-auto"
+          />
         </Link>
 
         {/* Desktop menu */}

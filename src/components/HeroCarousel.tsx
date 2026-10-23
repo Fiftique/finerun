@@ -9,20 +9,26 @@ import "swiper/css/navigation";
 
 const slides = [
   {
-    image: "/hero/asociatia-sportiva-finerun-iasi-hero.webp",
+    imageDesktop: "/hero/slide1-desktop.webp",
+    imageTablet: "/hero/slide1-tablet.webp",
+    imageMobile: "/hero/slide1-mobile.webp",
     title: "",
     description: "",
     showText: false,
   },
   {
-    image: "/hero/hero2.jpg",
+    imageDesktop: "/hero/slide2-desktop.webp",
+    imageTablet: "/hero/slide2-tablet.webp",
+    imageMobile: "/hero/slide2-mobile.webp",
     title: "Fiecare kilometru contează",
     description:
       "Credem că sportul unește comunități. Oferim suport, antrenamente și motivație pentru alergători de toate nivelurile.",
     showText: true,
   },
   {
-    image: "/hero/hero3.jpg",
+    imageDesktop: "/hero/slide3-desktop.webp",
+    imageTablet: "/hero/slide3-tablet.webp",
+    imageMobile: "/hero/slide3-mobile.webp",
     title: "Depășește-ți limitele",
     description:
       "De la primul kilometru până la linia de finish a unui maraton — suntem alături de tine la fiecare pas.",
@@ -32,7 +38,7 @@ const slides = [
 
 export default function HeroCarousel() {
   return (
-    <section className="relative w-full aspect-video group">
+    <section className="relative w-full aspect-[4/5] md:aspect-[4/3] lg:aspect-video group">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade, Navigation]}
         effect="fade"
@@ -47,14 +53,21 @@ export default function HeroCarousel() {
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
-            <div
-              className="relative w-full h-full bg-cover bg-center"
-              style={{ backgroundImage: `url(${slide.image})` }}
-            >
+            <div className="relative w-full h-full">
+              <picture className="absolute inset-0 w-full h-full">
+                <source media="(min-width: 1024px)" srcSet={slide.imageDesktop} />
+                <source media="(min-width: 768px)" srcSet={slide.imageTablet} />
+                <img
+                  src={slide.imageMobile}
+                  alt=""
+                  loading={index === 0 ? "eager" : "lazy"}
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </picture>
               {slide.showText && (
                 <>
-                  <div className="absolute inset-0 bg-black/50" />
-                  <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-white px-6">
+                  <div className="absolute inset-0 z-10 bg-black/50" />
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center text-white px-6">
                     <h1 className="text-2xl sm:text-3xl md:text-5xl font-bold mb-4 drop-shadow-lg">
                       {slide.title}
                     </h1>

@@ -10,49 +10,15 @@ import "swiper/css/effect-fade";
 import "swiper/css/navigation";
 import KilometriCounter from "./KilometriCounter";
 
-// Sloturi folosite pe mobil și tabletă (neschimbate)
-const mobileTabletSlides = [
-  {
-    imageDesktop: "/hero/background-desktop.webp",
-    imageTablet: "/hero/background-tablet.webp",
-    imageMobile: "/hero/background-mobile.webp",
-    video: "/hero/generated_video.mp4",
-    title: "",
-    description: "",
-    showText: false,
-    showLogo: true,
-    duration: 30000,
-  },
-  {
-    imageDesktop: "/hero/slide2-desktop.webp",
-    imageTablet: "/hero/slide2-tablet.webp",
-    imageMobile: "/hero/slide2-mobile.webp",
-    video: undefined,
-    title: "Fiecare kilometru contează",
-    description:
-      "Credem că sportul unește comunități. Oferim suport, antrenamente și motivație pentru alergători de toate nivelurile.",
-    showText: true,
-    showLogo: false,
-    duration: 15000,
-  },
-  {
-    imageDesktop: "/hero/slide3-desktop.webp",
-    imageTablet: "/hero/slide3-tablet.webp",
-    imageMobile: "/hero/slide3-mobile.webp",
-    video: undefined,
-    title: "Depășește-ți limitele",
-    description:
-      "De la primul kilometru până la linia de finish a unui maraton — suntem alături de tine la fiecare pas.",
-    showText: true,
-    showLogo: false,
-    duration: 15000,
-  },
-];
-
 const DESKTOP_VIDEO_DURATION = 6000;
 const DESKTOP_PHOTO_DURATION = 10000;
 // 12 increments în 6 secunde => un increment la fiecare 500ms
 const DESKTOP_COUNTER_INTERVAL = DESKTOP_VIDEO_DURATION / 12;
+
+const MOBILE_VIDEO_DURATION = 8000;
+const MOBILE_PHOTO_DURATION = 10000;
+// 12 increments în 8 secunde
+const MOBILE_COUNTER_INTERVAL = MOBILE_VIDEO_DURATION / 12;
 
 function Arrows({ prefix }: { prefix: string }) {
   return (
@@ -84,92 +50,108 @@ function Arrows({ prefix }: { prefix: string }) {
 export default function HeroCarousel() {
   return (
     <>
-      {/* ============ Varianta MOBIL + TABLETĂ (neschimbată) ============ */}
+      {/* ============ Varianta MOBIL + TABLETĂ ============ */}
       <section className="relative w-full aspect-[4/5] md:aspect-[4/3] lg:hidden group">
         <Swiper
           modules={[Autoplay, Pagination, EffectFade, Navigation]}
           effect="fade"
-          autoplay={{ delay: 15000, disableOnInteraction: false }}
+          autoplay={{ delay: MOBILE_PHOTO_DURATION, disableOnInteraction: false }}
           pagination={{ clickable: true }}
           navigation={{ nextEl: ".hero-mobile-next", prevEl: ".hero-mobile-prev" }}
           loop={true}
           className="w-full h-full"
         >
-          {mobileTabletSlides.map((slide, index) => (
-            <SwiperSlide key={index} data-swiper-autoplay={slide.duration}>
-              <div className="relative w-full h-full">
-                {slide.video ? (
-                  <video
-                    src={slide.video}
-                    poster={slide.imageDesktop}
-                    autoPlay
-                    muted
-                    loop
-                    playsInline
-                    preload="auto"
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                ) : (
-                  <picture className="absolute inset-0 w-full h-full">
-                    <source media="(min-width: 768px)" srcSet={slide.imageTablet} />
-                    <img
-                      src={slide.imageMobile}
-                      alt=""
-                      loading={index === 0 ? "eager" : "lazy"}
-                      className="absolute inset-0 w-full h-full object-cover"
-                    />
-                  </picture>
-                )}
-                {slide.showLogo && (
-                  <>
-                    <div className="absolute inset-0 z-10 flex items-center justify-center px-6">
-                      <Image
-                        src="/logo-finerune-asociatie-sportiva-full.svg"
-                        alt="FineRun.ro - Asociația Sportivă din Iași"
-                        width={695}
-                        height={448}
-                        priority
-                        className="w-64 sm:w-80 md:w-[28rem] h-auto drop-shadow-2xl"
-                      />
-                    </div>
-
-                    <div className="absolute left-8 top-8 sm:left-14 sm:top-14 md:left-20 md:top-20 z-20 max-w-[200px] sm:max-w-xs">
-                      <h2 className="text-white font-black uppercase leading-tight text-lg sm:text-2xl md:text-3xl drop-shadow-lg mb-3 sm:mb-4">
-                        Fiecare pas
-                        <br />
-                        <span className="text-yellow-400">contează</span>
-                      </h2>
-                      <Link
-                        href="/aderare"
-                        className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-400 
-                                   text-white font-bold px-4 py-2.5 sm:px-6 sm:py-3 rounded-full 
-                                   text-xs sm:text-sm transition-all duration-300 hover:scale-105 shadow-lg"
-                      >
-                        Alătură-te acum!
-                      </Link>
-                    </div>
-
-                    <div className="absolute right-8 top-8 sm:right-14 sm:top-14 md:right-20 md:top-20 z-20">
-                      <KilometriCounter />
-                    </div>
-                  </>
-                )}
-                {slide.showText && (
-                  <>
-                    <div className="absolute inset-0 z-10 bg-black/50" />
-                    <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center text-white px-6">
-                      <h1 className="text-2xl sm:text-3xl font-bold mb-4 drop-shadow-lg">
-                        {slide.title}
-                      </h1>
-                      <p className="text-base sm:text-lg max-w-2xl drop-shadow-md">
-                        {slide.description}
-                      </p>
-                    </div>
-                  </>
-                )}
+          {/* Slide 1 mobil/tabletă: video only, fără poster/flash */}
+          <SwiperSlide data-swiper-autoplay={MOBILE_VIDEO_DURATION}>
+            <div className="relative w-full h-full">
+              <video
+                src="/hero/generated_video.mp4"
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
+              <div className="absolute right-8 top-8 sm:right-14 sm:top-14 md:right-20 md:top-20 z-20">
+                <KilometriCounter intervalMs={MOBILE_COUNTER_INTERVAL} />
               </div>
-            </SwiperSlide>
-          ))}
+            </div>
+          </SwiperSlide>
+
+          {/* Slide 2 mobil/tabletă: fotografie + text existent + slogan/CTA + logo */}
+          <SwiperSlide data-swiper-autoplay={MOBILE_PHOTO_DURATION}>
+            <div className="relative w-full h-full">
+              <picture className="absolute inset-0 w-full h-full">
+                <source media="(min-width: 768px)" srcSet="/hero/slide2-tablet.webp" />
+                <img
+                  src="/hero/slide2-mobile.webp"
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </picture>
+              <div className="absolute inset-0 z-10 bg-black/50" />
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center text-white px-6">
+                <h1 className="text-2xl sm:text-3xl font-bold mb-4 drop-shadow-lg">
+                  Fiecare kilometru contează
+                </h1>
+                <p className="text-base sm:text-lg max-w-2xl drop-shadow-md">
+                  Credem că sportul unește comunități. Oferim suport, antrenamente și motivație pentru alergători de toate nivelurile.
+                </p>
+              </div>
+
+              <div className="absolute left-8 top-8 sm:left-14 sm:top-14 md:left-20 md:top-20 z-20 max-w-[200px] sm:max-w-xs">
+                <h2 className="text-white font-black uppercase leading-tight text-lg sm:text-2xl md:text-3xl drop-shadow-lg mb-3 sm:mb-4">
+                  Fiecare pas
+                  <br />
+                  <span className="text-yellow-400">contează</span>
+                </h2>
+                <Link
+                  href="/aderare"
+                  className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-400 
+                             text-white font-bold px-4 py-2.5 sm:px-6 sm:py-3 rounded-full 
+                             text-xs sm:text-sm transition-all duration-300 hover:scale-105 shadow-lg"
+                >
+                  Alătură-te acum!
+                </Link>
+              </div>
+
+              <div className="absolute right-8 top-8 sm:right-14 sm:top-14 md:right-20 md:top-20 z-20">
+                <Image
+                  src="/logo-finerune-asociatie-sportiva-full.svg"
+                  alt="FineRun.ro - Asociația Sportivă din Iași"
+                  width={695}
+                  height={448}
+                  className="w-32 sm:w-40 md:w-48 h-auto drop-shadow-2xl"
+                />
+              </div>
+            </div>
+          </SwiperSlide>
+
+          {/* Slide 3 mobil/tabletă: neschimbat */}
+          <SwiperSlide data-swiper-autoplay={MOBILE_PHOTO_DURATION}>
+            <div className="relative w-full h-full">
+              <picture className="absolute inset-0 w-full h-full">
+                <source media="(min-width: 768px)" srcSet="/hero/slide3-tablet.webp" />
+                <img
+                  src="/hero/slide3-mobile.webp"
+                  alt=""
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+              </picture>
+              <div className="absolute inset-0 z-10 bg-black/50" />
+              <div className="absolute inset-0 z-10 flex flex-col items-center justify-center text-center text-white px-6">
+                <h1 className="text-2xl sm:text-3xl font-bold mb-4 drop-shadow-lg">
+                  Depășește-ți limitele
+                </h1>
+                <p className="text-base sm:text-lg max-w-2xl drop-shadow-md">
+                  De la primul kilometru până la linia de finish a unui maraton — suntem alături de tine la fiecare pas.
+                </p>
+              </div>
+            </div>
+          </SwiperSlide>
         </Swiper>
         <Arrows prefix="hero-mobile" />
       </section>

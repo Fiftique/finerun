@@ -47,7 +47,7 @@ const slides = [
 
 export default function HeroCarousel() {
   return (
-    <section className="relative w-full aspect-[4/5] md:aspect-[4/3] lg:aspect-[2/1] group">
+    <section className="relative w-full aspect-[4/5] md:aspect-[4/3] lg:aspect-video group">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade, Navigation]}
         effect="fade"
@@ -87,7 +87,7 @@ export default function HeroCarousel() {
                   </div>
 
                   {/* Overlay stânga-sus: slogan + CTA */}
-                  <div className="absolute left-4 top-4 sm:left-8 sm:top-8 md:left-12 md:top-12 z-20 max-w-[200px] sm:max-w-xs">
+                  <div className="absolute left-8 top-8 sm:left-14 sm:top-14 md:left-20 md:top-20 z-20 max-w-[200px] sm:max-w-xs">
                     <h2 className="text-white font-black uppercase leading-tight text-lg sm:text-2xl md:text-3xl drop-shadow-lg mb-3 sm:mb-4">
                       Fiecare pas
                       <br />
@@ -104,7 +104,7 @@ export default function HeroCarousel() {
                   </div>
 
                   {/* Overlay dreapta-sus: counter kilometri */}
-                  <div className="absolute right-4 top-4 sm:right-8 sm:top-8 md:right-12 md:top-12 z-20">
+                  <div className="absolute right-8 top-8 sm:right-14 sm:top-14 md:right-20 md:top-20 z-20">
                     <KilometriCounter />
                   </div>
                 </>

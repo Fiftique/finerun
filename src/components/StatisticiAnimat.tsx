@@ -125,7 +125,7 @@ export default function StatisticiAnimat() {
           }}
         >
           <span className="text-yellow-400 text-sm sm:text-base font-semibold uppercase tracking-widest">
-            🏃 Comunitatea FineRun în cifre
+            Comunitatea FineRun în cifre
           </span>
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mt-3">
             Fiecare pas contează

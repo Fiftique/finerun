@@ -16,6 +16,8 @@ const slides = [
     description: "",
     showText: false,
     duration: 30000,
+    fit: "contain" as const,
+    bgColor: "#0f525c",
   },
   {
     imageDesktop: "/hero/slide2-desktop.webp",
@@ -26,6 +28,8 @@ const slides = [
       "Credem că sportul unește comunități. Oferim suport, antrenamente și motivație pentru alergători de toate nivelurile.",
     showText: true,
     duration: 15000,
+    fit: "cover" as const,
+    bgColor: undefined,
   },
   {
     imageDesktop: "/hero/slide3-desktop.webp",
@@ -36,12 +40,14 @@ const slides = [
       "De la primul kilometru până la linia de finish a unui maraton — suntem alături de tine la fiecare pas.",
     showText: true,
     duration: 15000,
+    fit: "cover" as const,
+    bgColor: undefined,
   },
 ];
 
 export default function HeroCarousel() {
   return (
-    <section className="relative w-full aspect-[4/5] md:aspect-[4/3] lg:aspect-video lg:max-h-[650px] group">
+    <section className="relative w-full aspect-[4/5] md:aspect-[4/3] lg:aspect-video lg:max-h-[80vh] group">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade, Navigation]}
         effect="fade"
@@ -56,7 +62,10 @@ export default function HeroCarousel() {
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index} data-swiper-autoplay={slide.duration}>
-            <div className="relative w-full h-full">
+            <div
+              className="relative w-full h-full"
+              style={{ backgroundColor: slide.bgColor }}
+            >
               <picture className="absolute inset-0 w-full h-full">
                 <source media="(min-width: 1024px)" srcSet={slide.imageDesktop} />
                 <source media="(min-width: 768px)" srcSet={slide.imageTablet} />
@@ -64,7 +73,9 @@ export default function HeroCarousel() {
                   src={slide.imageMobile}
                   alt=""
                   loading={index === 0 ? "eager" : "lazy"}
-                  className="absolute inset-0 w-full h-full object-cover lg:object-top"
+                  className={`absolute inset-0 w-full h-full ${
+                    slide.fit === "contain" ? "object-contain" : "object-cover"
+                  }`}
                 />
               </picture>
               {slide.showText && (

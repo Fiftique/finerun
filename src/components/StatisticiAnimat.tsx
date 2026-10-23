@@ -3,9 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 
 const stats = [
-  { value: 500, suffix: "+", label: "Alergători activi", icon: "runners" },
+  { value: 76, suffix: "+", label: "Alergători activi", icon: "runners", duration: 3500 },
   { value: 30, suffix: "+", label: "Maratoane parcurse", icon: "trophy" },
-  { value: 5, suffix: "", label: "Ani de activitate", icon: "calendar" },
+  { value: 2, suffix: "", label: "Ani de activitate", icon: "calendar" },
   { value: 15000, suffix: "+", label: "Kilometri alergați", icon: "road" },
 ];
 
@@ -31,10 +31,10 @@ function useCountUp(target: number, isVisible: boolean, duration = 2000) {
   return count;
 }
 
-function StatCard({ value, suffix, label, icon, isVisible, delay }: {
-  value: number; suffix: string; label: string; icon: string; isVisible: boolean; delay: number;
+function StatCard({ value, suffix, label, icon, isVisible, delay, duration }: {
+  value: number; suffix: string; label: string; icon: string; isVisible: boolean; delay: number; duration?: number;
 }) {
-  const count = useCountUp(value, isVisible);
+  const count = useCountUp(value, isVisible, duration);
 
   const icons: Record<string, React.ReactNode> = {
     runners: (

@@ -15,6 +15,7 @@ const slides = [
     title: "",
     description: "",
     showText: false,
+    duration: 30000,
   },
   {
     imageDesktop: "/hero/slide2-desktop.webp",
@@ -24,6 +25,7 @@ const slides = [
     description:
       "Credem că sportul unește comunități. Oferim suport, antrenamente și motivație pentru alergători de toate nivelurile.",
     showText: true,
+    duration: 15000,
   },
   {
     imageDesktop: "/hero/slide3-desktop.webp",
@@ -33,16 +35,17 @@ const slides = [
     description:
       "De la primul kilometru până la linia de finish a unui maraton — suntem alături de tine la fiecare pas.",
     showText: true,
+    duration: 15000,
   },
 ];
 
 export default function HeroCarousel() {
   return (
-    <section className="relative w-full aspect-[4/5] md:aspect-[4/3] lg:aspect-video group">
+    <section className="relative w-full aspect-[4/5] md:aspect-[4/3] lg:aspect-video lg:max-h-[650px] group">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade, Navigation]}
         effect="fade"
-        autoplay={{ delay: 5000, disableOnInteraction: false }}
+        autoplay={{ delay: 15000, disableOnInteraction: false }}
         pagination={{ clickable: true }}
         navigation={{
           nextEl: ".hero-next",
@@ -52,7 +55,7 @@ export default function HeroCarousel() {
         className="w-full h-full"
       >
         {slides.map((slide, index) => (
-          <SwiperSlide key={index}>
+          <SwiperSlide key={index} data-swiper-autoplay={slide.duration}>
             <div className="relative w-full h-full">
               <picture className="absolute inset-0 w-full h-full">
                 <source media="(min-width: 1024px)" srcSet={slide.imageDesktop} />
@@ -61,7 +64,7 @@ export default function HeroCarousel() {
                   src={slide.imageMobile}
                   alt=""
                   loading={index === 0 ? "eager" : "lazy"}
-                  className="absolute inset-0 w-full h-full object-cover"
+                  className="absolute inset-0 w-full h-full object-cover lg:object-top"
                 />
               </picture>
               {slide.showText && (

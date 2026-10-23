@@ -15,6 +15,7 @@ const slides = [
     imageDesktop: "/hero/background-desktop.webp",
     imageTablet: "/hero/background-tablet.webp",
     imageMobile: "/hero/background-mobile.webp",
+    video: "/hero/generated_video.mp4",
     title: "",
     description: "",
     showText: false,
@@ -25,6 +26,7 @@ const slides = [
     imageDesktop: "/hero/slide2-desktop.webp",
     imageTablet: "/hero/slide2-tablet.webp",
     imageMobile: "/hero/slide2-mobile.webp",
+    video: undefined,
     title: "Fiecare kilometru contează",
     description:
       "Credem că sportul unește comunități. Oferim suport, antrenamente și motivație pentru alergători de toate nivelurile.",
@@ -36,6 +38,7 @@ const slides = [
     imageDesktop: "/hero/slide3-desktop.webp",
     imageTablet: "/hero/slide3-tablet.webp",
     imageMobile: "/hero/slide3-mobile.webp",
+    video: undefined,
     title: "Depășește-ți limitele",
     description:
       "De la primul kilometru până la linia de finish a unui maraton — suntem alături de tine la fiecare pas.",
@@ -63,16 +66,29 @@ export default function HeroCarousel() {
         {slides.map((slide, index) => (
           <SwiperSlide key={index} data-swiper-autoplay={slide.duration}>
             <div className="relative w-full h-full">
-              <picture className="absolute inset-0 w-full h-full">
-                <source media="(min-width: 1024px)" srcSet={slide.imageDesktop} />
-                <source media="(min-width: 768px)" srcSet={slide.imageTablet} />
-                <img
-                  src={slide.imageMobile}
-                  alt=""
-                  loading={index === 0 ? "eager" : "lazy"}
+              {slide.video ? (
+                <video
+                  src={slide.video}
+                  poster={slide.imageDesktop}
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  preload="auto"
                   className="absolute inset-0 w-full h-full object-cover"
                 />
-              </picture>
+              ) : (
+                <picture className="absolute inset-0 w-full h-full">
+                  <source media="(min-width: 1024px)" srcSet={slide.imageDesktop} />
+                  <source media="(min-width: 768px)" srcSet={slide.imageTablet} />
+                  <img
+                    src={slide.imageMobile}
+                    alt=""
+                    loading={index === 0 ? "eager" : "lazy"}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                </picture>
+              )}
               {slide.showLogo && (
                 <>
                   <div className="absolute inset-0 z-10 flex items-center justify-center px-6">

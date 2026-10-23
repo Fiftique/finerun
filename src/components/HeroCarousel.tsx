@@ -86,8 +86,8 @@ export default function HeroCarousel() {
                     />
                   </div>
 
-                  {/* Overlay stânga-jos: slogan + CTA */}
-                  <div className="absolute left-4 bottom-4 sm:left-8 sm:bottom-8 md:left-12 md:bottom-12 z-20 max-w-[200px] sm:max-w-xs">
+                  {/* Overlay stânga-sus: slogan + CTA */}
+                  <div className="absolute left-4 top-4 sm:left-8 sm:top-8 md:left-12 md:top-12 z-20 max-w-[200px] sm:max-w-xs">
                     <h2 className="text-white font-black uppercase leading-tight text-lg sm:text-2xl md:text-3xl drop-shadow-lg mb-3 sm:mb-4">
                       Fiecare pas
                       <br />
@@ -103,8 +103,8 @@ export default function HeroCarousel() {
                     </Link>
                   </div>
 
-                  {/* Overlay dreapta-jos: counter kilometri */}
-                  <div className="absolute right-4 bottom-4 sm:right-8 sm:bottom-8 md:right-12 md:bottom-12 z-20">
+                  {/* Overlay dreapta-sus: counter kilometri */}
+                  <div className="absolute right-4 top-4 sm:right-8 sm:top-8 md:right-12 md:top-12 z-20">
                     <KilometriCounter />
                   </div>
                 </>

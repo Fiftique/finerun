@@ -9,9 +9,9 @@ import "swiper/css/navigation";
 
 const slides = [
   {
-    imageDesktop: "/hero/slide1-desktop.webp",
-    imageTablet: "/hero/slide1-tablet.webp",
-    imageMobile: "/hero/slide1-mobile.webp",
+    imageDesktop: "/hero/FineRun.ro-asociatie-desktop.webp",
+    imageTablet: "/hero/FineRun.ro-asociatie-tablet.webp",
+    imageMobile: "/hero/FineRun.ro-asociatie-mobile.webp",
     title: "",
     description: "",
     showText: false,

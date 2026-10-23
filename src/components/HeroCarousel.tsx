@@ -1,23 +1,25 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination, EffectFade, Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 import "swiper/css/navigation";
+import KilometriCounter from "./KilometriCounter";
 
 const slides = [
   {
-    imageDesktop: "/hero/FineRun.ro-asociatie-desktop.webp",
-    imageTablet: "/hero/FineRun.ro-asociatie-tablet.webp",
-    imageMobile: "/hero/FineRun.ro-asociatie-mobile.webp",
+    imageDesktop: "/hero/background-desktop.webp",
+    imageTablet: "/hero/background-tablet.webp",
+    imageMobile: "/hero/background-mobile.webp",
     title: "",
     description: "",
     showText: false,
+    showLogo: true,
     duration: 30000,
-    fit: "contain" as const,
-    bgColor: "#0f525c",
   },
   {
     imageDesktop: "/hero/slide2-desktop.webp",
@@ -27,9 +29,8 @@ const slides = [
     description:
       "Credem că sportul unește comunități. Oferim suport, antrenamente și motivație pentru alergători de toate nivelurile.",
     showText: true,
+    showLogo: false,
     duration: 15000,
-    fit: "cover" as const,
-    bgColor: undefined,
   },
   {
     imageDesktop: "/hero/slide3-desktop.webp",
@@ -39,15 +40,14 @@ const slides = [
     description:
       "De la primul kilometru până la linia de finish a unui maraton — suntem alături de tine la fiecare pas.",
     showText: true,
+    showLogo: false,
     duration: 15000,
-    fit: "cover" as const,
-    bgColor: undefined,
   },
 ];
 
 export default function HeroCarousel() {
   return (
-    <section className="relative w-full aspect-[4/5] md:aspect-[4/3] lg:aspect-video lg:max-h-[80vh] group">
+    <section className="relative w-full aspect-[4/5] md:aspect-[4/3] lg:aspect-[2/1] group">
       <Swiper
         modules={[Autoplay, Pagination, EffectFade, Navigation]}
         effect="fade"
@@ -62,10 +62,7 @@ export default function HeroCarousel() {
       >
         {slides.map((slide, index) => (
           <SwiperSlide key={index} data-swiper-autoplay={slide.duration}>
-            <div
-              className="relative w-full h-full"
-              style={{ backgroundColor: slide.bgColor }}
-            >
+            <div className="relative w-full h-full">
               <picture className="absolute inset-0 w-full h-full">
                 <source media="(min-width: 1024px)" srcSet={slide.imageDesktop} />
                 <source media="(min-width: 768px)" srcSet={slide.imageTablet} />
@@ -73,11 +70,45 @@ export default function HeroCarousel() {
                   src={slide.imageMobile}
                   alt=""
                   loading={index === 0 ? "eager" : "lazy"}
-                  className={`absolute inset-0 w-full h-full ${
-                    slide.fit === "contain" ? "object-contain" : "object-cover"
-                  }`}
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
               </picture>
+              {slide.showLogo && (
+                <>
+                  <div className="absolute inset-0 z-10 flex items-center justify-center px-6">
+                    <Image
+                      src="/logo-finerune-asociatie-sportiva-full.svg"
+                      alt="FineRun.ro - Asociația Sportivă din Iași"
+                      width={695}
+                      height={448}
+                      priority
+                      className="w-64 sm:w-80 md:w-[28rem] lg:w-[36rem] h-auto drop-shadow-2xl"
+                    />
+                  </div>
+
+                  {/* Overlay stânga-jos: slogan + CTA */}
+                  <div className="absolute left-4 bottom-4 sm:left-8 sm:bottom-8 md:left-12 md:bottom-12 z-20 max-w-[200px] sm:max-w-xs">
+                    <h2 className="text-white font-black uppercase leading-tight text-lg sm:text-2xl md:text-3xl drop-shadow-lg mb-3 sm:mb-4">
+                      Fiecare pas
+                      <br />
+                      <span className="text-yellow-400">contează</span>
+                    </h2>
+                    <Link
+                      href="/aderare"
+                      className="inline-flex items-center justify-center bg-orange-500 hover:bg-orange-400 
+                                 text-white font-bold px-4 py-2.5 sm:px-6 sm:py-3 rounded-full 
+                                 text-xs sm:text-sm transition-all duration-300 hover:scale-105 shadow-lg"
+                    >
+                      Alătură-te acum!
+                    </Link>
+                  </div>
+
+                  {/* Overlay dreapta-jos: counter kilometri */}
+                  <div className="absolute right-4 bottom-4 sm:right-8 sm:bottom-8 md:right-12 md:bottom-12 z-20">
+                    <KilometriCounter />
+                  </div>
+                </>
+              )}
               {slide.showText && (
                 <>
                   <div className="absolute inset-0 z-10 bg-black/50" />

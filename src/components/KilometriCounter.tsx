@@ -3,17 +3,21 @@
 import { useEffect, useState } from "react";
 
 const START_VALUE = 14000;
-const INCREMENT_INTERVAL_MS = 4000;
+const DEFAULT_INTERVAL_MS = 4000;
 
-export default function KilometriCounter() {
+export default function KilometriCounter({
+  intervalMs = DEFAULT_INTERVAL_MS,
+}: {
+  intervalMs?: number;
+}) {
   const [km, setKm] = useState(START_VALUE);
 
   useEffect(() => {
     const timer = setInterval(() => {
       setKm((prev) => prev + 1);
-    }, INCREMENT_INTERVAL_MS);
+    }, intervalMs);
     return () => clearInterval(timer);
-  }, []);
+  }, [intervalMs]);
 
   return (
     <div className="text-right text-white drop-shadow-lg">

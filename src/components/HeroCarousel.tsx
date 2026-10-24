@@ -15,9 +15,9 @@ const DESKTOP_PHOTO_DURATION = 10000;
 // 12 increments în 6 secunde => un increment la fiecare 500ms
 const DESKTOP_COUNTER_INTERVAL = DESKTOP_VIDEO_DURATION / 12;
 
-const MOBILE_VIDEO_DURATION = 8000;
+const MOBILE_VIDEO_DURATION = 5000;
 const MOBILE_PHOTO_DURATION = 10000;
-// 12 increments în 8 secunde
+// 12 increments în 5 secunde
 const MOBILE_COUNTER_INTERVAL = MOBILE_VIDEO_DURATION / 12;
 
 function Arrows({ prefix }: { prefix: string }) {
